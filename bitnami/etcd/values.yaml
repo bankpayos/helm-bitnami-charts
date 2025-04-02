@@ -648,6 +648,11 @@ persistence:
   ##
   accessModes:
     - ReadWriteOnce
+
+  ## @param persistence.volumeMode
+  volumeMode:
+    blockEnable: false
+    devicePath: ""
   ## @param persistence.size PVC Storage Request for etcd data volume
   ##
   size: 8Gi
