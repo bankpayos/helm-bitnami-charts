@@ -467,7 +467,7 @@ spec:
           - {{ . | quote }}
         {{- end }}
         {{- if .Values.persistence.volumeMode.blockEnable }}
-        volumeMode: {{ "block" }}
+        volumeMode: {{ "Block" }}
         {{- end }}
         resources:
           requests:
