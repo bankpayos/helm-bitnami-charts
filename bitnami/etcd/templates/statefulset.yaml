@@ -397,7 +397,7 @@ spec:
           {{- if .Values.persistence.volumeMode.blockEnable }}
           volumeDevices:
             - name: data
-              devicePath: {{ .Values.persistence.volumeMode.devicePath }}
+              devicePath: /bitnami/etcd
           {{- end}}
       volumes:
         - name: empty-dir
@@ -446,15 +446,14 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
   {{- if not .Values.persistence.enabled }}
-        {{- if not .Values.persistence.volumeMode.blockEnable }}
         - name: data
           emptyDir: {}
-        {{- else }}
+  {{- else }}
+        {{- if .Values.persistence.volumeMode.blockEnable }}
         - name: data
           persistentVolumeClaim:
             claimName: data
         {{- end }}
-  {{- else }}
   {{- if .Values.persistentVolumeClaimRetentionPolicy.enabled }}
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: {{ .Values.persistentVolumeClaimRetentionPolicy.whenDeleted }}
