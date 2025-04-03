@@ -354,10 +354,8 @@ spec:
             - name: empty-dir
               mountPath: /tmp
               subPath: tmp-dir
-            {{- if not .Values.persistence.volumeMode.blockEnable }}
             - name: data
               mountPath: /bitnami/etcd
-            {{- end }}
             {{- if and (eq .Values.auth.token.enabled true) (eq .Values.auth.token.type "jwt") }}
             - name: etcd-jwt-token
               mountPath: /opt/bitnami/etcd/certs/token/
@@ -397,7 +395,7 @@ spec:
           {{- if .Values.persistence.volumeMode.blockEnable }}
           volumeDevices:
             - name: data
-              devicePath: /bitnami/etcd
+              devicePath: {{ .Values.persistence.volumeMode.devicePath }}
           {{- end}}
       volumes:
         - name: empty-dir
